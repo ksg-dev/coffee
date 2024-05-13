@@ -29,7 +29,6 @@ def check_resources(order_ingr):
 
 def money():
     """Takes coins as input, returns balance entered to main function"""
-    """Takes coins as input, returns balance entered to main function"""
     print("Please insert coins.")
     q = int(input("How many quarters?: "))
     d = int(input("How many dimes?: "))
