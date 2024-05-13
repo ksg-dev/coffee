@@ -14,7 +14,7 @@ def make_coffee(drink, ingredients):
 
     for item in ingredients:
         resources[item] -= ingredients[item]
-    print(f"Here is your {drink}. Enjoy!")
+    print(f"Here is your {drink}. ☕️ Enjoy!")
 
 
 def check_resources(order_ingr):
