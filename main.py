@@ -9,38 +9,27 @@ def report(balance):
     print(f"Money: ${balance:.2f}")
 
 
-def order():
-    pass
+def make_coffee(drink, ingredients):
+    """Subtract used resources from resources"""
+    resources = menu.resources
+
+    for item in ingredients:
+        resources[item] -= ingredients[item]
+    print(f"Here is your {drink}. Enjoy!")
 
 
-def check_resources(drink):
-    need_water = menu.MENU[drink]["ingredients"]["water"]
-    need_coffee = menu.MENU[drink]["ingredients"]["coffee"]
-    need_milk = menu.MENU[drink]["ingredients"]["milk"]
-    have_water = menu.resources["water"]
-    have_milk = menu.resources["milk"]
-    have_coffee = menu.resources["coffee"]
-    ingredients = list(menu.MENU[drink]["ingredients"])
-    for i, r in
-
-
-
-
-
-
-
-
-    # try:
-    #     water = menu.MENU[drink]["ingredients"]["water"]
-    #     coffee = menu.MENU[drink]["ingredients"]["coffee"]
-    #     milk = menu.MENU[drink]["ingredients"]["milk"]
-    # except KeyError:
-    print(ingredients)
-    print(resources)
-    # print(f"Resources needed:\nWater: {water}\nMilk: {milk}\nCoffee: {coffee}")
+def check_resources(order_ingr):
+    """Returns True when order can be made, False if ingredients are insufficient."""
+    resources = menu.resources
+    for item in order_ingr:
+        if order_ingr[item] > resources[item]:
+            print(f"Sorry there is not enough {item}.")
+            return False
+    return True
 
 
 def money():
+    """Takes coins as input, returns balance entered to main function"""
     print("Please insert coins.")
     q = int(input("How many quarters?: "))
     d = int(input("How many dimes?: "))
@@ -54,10 +43,17 @@ def money():
     return float(total)
 
 
-# operations = {
-#     "report": report(),
-#     "order": order(),
-# }
+def check_money(entered_money, drink_cost):
+    """Returns True if enough money was entered, change if over, False if not enough entered"""
+    if entered_money < drink_cost:
+        print(f"Not enough money entered.\nWe've refunded your ${entered_money}.")
+        return False
+    elif entered_money > drink_cost:
+        change = entered_money - drink_cost
+        print(f"Here is ${change:.2f} in change.")
+        return True
+    else:
+        return True
 
 
 def main():
@@ -70,14 +66,13 @@ def main():
         elif choice == "off":
             maker_on = False
             print("Have a nice day!")
-        # Test money function, return report
-        elif choice == "money":
-            entered += money()
             report(entered)
         elif choice == "espresso" or "latte" or "cappuccino":
-            check_resources(choice)
-
-
+            drink = menu.MENU[choice]
+            if check_resources(drink["ingredients"]):
+                payment = money()
+                if check_money(payment, drink["cost"]):
+                    make_coffee(choice, drink["ingredients"])
 
 
 main()
