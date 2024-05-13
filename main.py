@@ -25,23 +25,6 @@ def check_resources(order_ingr):
             print(f"Sorry there is not enough {item}.")
             return False
     return True
-def make_coffee(drink, ingredients):
-    """Subtract used resources from resources"""
-    resources = menu.resources
-
-    for item in ingredients:
-        resources[item] -= ingredients[item]
-    print(f"Here is your {drink}. Enjoy!")
-
-
-def check_resources(order_ingr):
-    """Returns True when order can be made, False if ingredients are insufficient."""
-    resources = menu.resources
-    for item in order_ingr:
-        if order_ingr[item] > resources[item]:
-            print(f"Sorry there is not enough {item}.")
-            return False
-    return True
 
 
 def money():
@@ -63,7 +46,7 @@ def money():
 def check_money(entered_money, drink_cost):
     """Returns True if enough money was entered, change if over, False if not enough entered"""
     if entered_money < drink_cost:
-        print(f"Not enough money entered.\nWe've refunded your ${entered_money}.")
+        print(f"Not enough money entered.\nWe've refunded your ${entered_money:.2f}.")
         return False
     elif entered_money > drink_cost:
         change = entered_money - drink_cost
