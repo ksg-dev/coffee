@@ -13,8 +13,31 @@ def order():
     pass
 
 
-def check_resources():
-    pass
+def check_resources(drink):
+    need_water = menu.MENU[drink]["ingredients"]["water"]
+    need_coffee = menu.MENU[drink]["ingredients"]["coffee"]
+    need_milk = menu.MENU[drink]["ingredients"]["milk"]
+    have_water = menu.resources["water"]
+    have_milk = menu.resources["milk"]
+    have_coffee = menu.resources["coffee"]
+    ingredients = list(menu.MENU[drink]["ingredients"])
+    for i, r in
+
+
+
+
+
+
+
+
+    # try:
+    #     water = menu.MENU[drink]["ingredients"]["water"]
+    #     coffee = menu.MENU[drink]["ingredients"]["coffee"]
+    #     milk = menu.MENU[drink]["ingredients"]["milk"]
+    # except KeyError:
+    print(ingredients)
+    print(resources)
+    # print(f"Resources needed:\nWater: {water}\nMilk: {milk}\nCoffee: {coffee}")
 
 
 def money():
@@ -38,14 +61,23 @@ def money():
 
 
 def main():
+    maker_on = True
     entered = 0
-    choice = input("What would you like? (espresso/latte/cappuccino): ").lower().strip()
-    if choice == "report":
-        report(entered)
-    # Test money function, return report
-    elif choice == "money":
-        entered += money()
-        report(entered)
+    while maker_on:
+        choice = input("What would you like? (espresso/latte/cappuccino): ").lower().strip()
+        if choice == "report":
+            report(entered)
+        elif choice == "off":
+            maker_on = False
+            print("Have a nice day!")
+        # Test money function, return report
+        elif choice == "money":
+            entered += money()
+            report(entered)
+        elif choice == "espresso" or "latte" or "cappuccino":
+            check_resources(choice)
+
+
 
 
 main()
