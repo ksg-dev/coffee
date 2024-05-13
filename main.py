@@ -1,11 +1,10 @@
 import menu
 
 
-def report(balance):
-    uom = ["ml", "ml", "g"]
-    for resource, amount in menu.resources.items():
-        print(f"{resource.title()}: {amount}")
-
+def report(resources, balance):
+    print(f"Water: {resources['water']}ml")
+    print(f"Milk: {resources['milk']}ml")
+    print(f"Coffee: {resources['coffee']}g")
     print(f"Money: ${balance:.2f}")
 
 
@@ -61,12 +60,11 @@ def main():
     entered = 0
     while maker_on:
         choice = input("What would you like? (espresso/latte/cappuccino): ").lower().strip()
-        if choice == "report":
-            report(entered)
-        elif choice == "off":
+        if choice == "off":
             maker_on = False
             print("Have a nice day!")
-            report(entered)
+        elif choice == "report":
+            report(menu.resources, entered)
         elif choice == "espresso" or "latte" or "cappuccino":
             drink = menu.MENU[choice]
             if check_resources(drink["ingredients"]):
